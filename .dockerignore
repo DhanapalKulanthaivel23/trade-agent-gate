@@ -1,0 +1,7 @@
+.git
+.env*
+.dev.vars
+*.key
+*.pem
+bin
+work
