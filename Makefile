@@ -2,6 +2,7 @@
 test:
 	go vet ./...
 	go test -race ./...
+	node --test docs/*.test.mjs
 run:
 	go run .
 build:

@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-//go:embed docs/index.html docs/app.js docs/style.css
+//go:embed docs/index.html docs/app.js docs/style.css docs/workbench.html docs/workbench.mjs docs/workbench.css docs/graph-view.mjs
 var assets embed.FS
 
 func respond(w http.ResponseWriter, status int, data any) {
@@ -28,11 +28,11 @@ func app() http.Handler {
 			w.WriteHeader(405)
 			return
 		}
-		if r.URL.Path != "/" && r.URL.Path != "/index.html" && r.URL.Path != "/app.js" && r.URL.Path != "/style.css" {
+		if r.URL.Path != "/" && r.URL.Path != "/index.html" && r.URL.Path != "/app.js" && r.URL.Path != "/style.css" && r.URL.Path != "/workbench.html" && r.URL.Path != "/workbench.mjs" && r.URL.Path != "/workbench.css" && r.URL.Path != "/graph-view.mjs" {
 			http.NotFound(w, r)
 			return
 		}
-		w.Header().Set("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'")
+		w.Header().Set("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self' https: http://localhost:* http://127.0.0.1:*; frame-ancestors 'none'; base-uri 'none'")
 		static.ServeHTTP(w, r)
 	})
 	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
@@ -42,13 +42,8 @@ func app() http.Handler {
 		}
 		respond(w, 200, map[string]any{"status": "ok", "synthetic": true})
 	})
-	mux.HandleFunc("/api/demo-trades", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != "GET" {
-			w.WriteHeader(405)
-			return
-		}
-		respond(w, 200, []any{map[string]any{"id": "DEMO-001", "label": "Synthetic shipment", "status": "sample_only"}})
-	})
+	mux.HandleFunc("/api/demo-trades", func(w http.ResponseWriter, r *http.Request) { http.NotFound(w, r) })
+
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Cache-Control", "no-store")
 		w.Header().Set("X-Content-Type-Options", "nosniff")
