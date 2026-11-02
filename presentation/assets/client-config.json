@@ -1,0 +1,12 @@
+{
+  "project": "trade",
+  "name": "Trade Agent Gate",
+  "apiBaseUrl": "",
+  "projectUrls": {
+    "trade": "https://DhanapalKulanthaivel23.github.io/trade-agent-gate/",
+    "compliance": "https://DhanapalKulanthaivel23.github.io/compliance-rail/",
+    "iam": "https://DhanapalKulanthaivel23.github.io/iam-ai-guard/",
+    "payments": "https://DhanapalKulanthaivel23.github.io/TxPaymentRail/"
+  },
+  "registryUrl": "https://dhanapalkulanthaivel23.github.io/trade-agent-gate/client-config.json"
+}
